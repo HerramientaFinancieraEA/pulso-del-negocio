@@ -16,12 +16,12 @@
 // de Firestore (paso 3), no en ocultar este archivo.
 
 export const firebaseConfig = {
-  apiKey: "TU_API_KEY",
-  authDomain: "tu-proyecto.firebaseapp.com",
-  projectId: "tu-proyecto",
-  storageBucket: "tu-proyecto.appspot.com",
-  messagingSenderId: "000000000000",
-  appId: "1:000000000000:web:xxxxxxxxxxxxxxxxxxxxxx",
+apiKey: "AIzaSyCqzce49VuD5hrq6rau1qTj3--CDgycG04",
+authDomain: "asesor-pulso-de-negocio.firebaseapp.com",
+projectId: "asesor-pulso-de-negocio",
+storageBucket: "asesor-pulso-de-negocio.firebasestorage.app",
+messagingSenderId: "278682345811",
+appId: "1:278682345811:web:d14bf9adb26dcaaa4901a6",
 };
 
 // Código de acceso al panel de administrador (pestaña "Programa").
@@ -30,4 +30,4 @@ export const firebaseConfig = {
 // el panel por accidente. Cualquier persona que use la aplicación puede,
 // en principio, leerlo si revisa el código — no lo uses para datos
 // verdaderamente sensibles.
-export const ADMIN_CODE = "palante2026";
+export const ADMIN_CODE = "AsesorEA2026";
