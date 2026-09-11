@@ -1,0 +1,324 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pulso del Negocio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%A9%BA%3C/text%3E%3C/svg%3E">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">
+    <span class="brand-mark" aria-hidden="true">🩺</span>
+    <span class="brand-name">Pulso del Negocio</span>
+  </div>
+  <div class="topbar-right">
+    <span id="session-label" class="session-label" hidden></span>
+    <button id="btn-theme" class="icon-btn" type="button" title="Cambiar tema">🌓</button>
+  </div>
+</header>
+
+<nav class="tabbar" aria-label="Secciones">
+  <button class="tab-btn" data-tab="inicio" aria-current="page">Inicio</button>
+  <button class="tab-btn" data-tab="registro-inicial">Registro inicial</button>
+  <button class="tab-btn" data-tab="registro-diario" disabled>Registro diario</button>
+  <button class="tab-btn" data-tab="resultados" disabled>Resultados</button>
+  <button class="tab-btn" data-tab="asesor" disabled>Asesor financiero</button>
+  <button class="tab-btn tab-btn-admin" data-tab="admin">Programa</button>
+</nav>
+
+<main class="panels">
+
+  <!-- ===================== INICIO ===================== -->
+  <section id="panel-inicio" class="panel" data-panel="inicio">
+    <div class="hero">
+      <h1>Sabe cada día si tu negocio está sano</h1>
+      <p class="hero-sub">Llena un registro sencillo desde tu celular — en menos de dos minutos al día — y esta herramienta hace las cuentas por ti: tu balance, tu semáforo de salud financiera, y si es buen momento para pedir un crédito.</p>
+      <button id="btn-empezar" class="btn btn-primary btn-lg" type="button">Comenzar mi registro →</button>
+    </div>
+    <div class="feature-grid">
+      <div class="feature-card">
+        <span class="feature-icon">📝</span>
+        <h3>Registro diario</h3>
+        <p>Anota lo que entró y lo que salió hoy — nada de fórmulas, la herramienta calcula sola.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">⚖️</span>
+        <h3>Balance automático</h3>
+        <p>Ve tus activos, pasivos y patrimonio actualizados con cada día que registras.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">🚦</span>
+        <h3>Semáforo de salud</h3>
+        <p>Verde, amarillo o rojo — con un mensaje claro y una recomendación concreta.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">🏦</span>
+        <h3>Asesor financiero</h3>
+        <p>Una estimación educativa de cuánto podrías pagar en cuotas sin afectar tu negocio.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= REGISTRO INICIAL ================= -->
+  <section id="panel-registro-inicial" class="panel" data-panel="registro-inicial" hidden>
+    <h2>Registro inicial</h2>
+    <p class="panel-sub">Escribe el nombre de tu negocio y crea un código de 4 dígitos. Si ya lo usaste antes, escribe el mismo nombre y código para entrar de nuevo a tu registro.</p>
+
+    <form id="form-login" class="card form-card">
+      <div class="field-grid">
+        <div class="field">
+          <label for="login-nombre">Nombre del negocio</label>
+          <input type="text" id="login-nombre" required placeholder="Ej: Fritos de la Esquina" maxlength="80">
+        </div>
+        <div class="field">
+          <label for="login-pin">Código de 4 dígitos</label>
+          <input type="text" id="login-pin" required inputmode="numeric" pattern="[0-9]{4}" maxlength="4" placeholder="Ej: 4821">
+        </div>
+      </div>
+      <p class="field-help">Elige un código fácil de recordar (no es una contraseña real, solo evita confusiones entre negocios). Escríbelo en un lugar seguro — lo necesitas para volver a entrar.</p>
+      <button type="submit" class="btn btn-primary">Entrar</button>
+      <p id="login-msg" class="form-msg" hidden></p>
+    </form>
+
+    <form id="form-config" class="card form-card" hidden>
+      <h3 id="config-title">Datos iniciales de tu negocio</h3>
+      <p class="field-help">Se llenan una sola vez: lo que tienes hoy, antes de empezar a registrar.</p>
+      <div class="field-grid">
+        <div class="field">
+          <label for="cfg-cash">Saldo de caja inicial</label>
+          <div class="money-input"><span>$</span><input type="number" min="0" step="1000" id="cfg-cash" required></div>
+        </div>
+        <div class="field">
+          <label for="cfg-inventory">Inventario inicial (estimado)</label>
+          <div class="money-input"><span>$</span><input type="number" min="0" step="1000" id="cfg-inventory" required></div>
+        </div>
+        <div class="field">
+          <label for="cfg-capital">Capital propio aportado</label>
+          <div class="money-input"><span>$</span><input type="number" min="0" step="1000" id="cfg-capital" required></div>
+        </div>
+      </div>
+
+      <div class="list-block">
+        <div class="list-block-head">
+          <label>Activos fijos (carrito, freidora, herramientas…)</label>
+          <button type="button" id="add-asset" class="btn btn-ghost btn-sm">+ Agregar</button>
+        </div>
+        <div id="rows-assets" class="list-rows"></div>
+      </div>
+
+      <div class="list-block">
+        <div class="list-block-head">
+          <label>Deudas pendientes hoy</label>
+          <button type="button" id="add-debt" class="btn btn-ghost btn-sm">+ Agregar</button>
+        </div>
+        <div id="rows-debts" class="list-rows"></div>
+      </div>
+
+      <button type="submit" class="btn btn-primary">Guardar y continuar →</button>
+      <p id="config-msg" class="form-msg" hidden></p>
+    </form>
+  </section>
+
+  <!-- ================= REGISTRO DIARIO ================= -->
+  <section id="panel-registro-diario" class="panel" data-panel="registro-diario" hidden>
+    <h2>Registro diario</h2>
+    <p class="panel-sub">Llena esto cada día — lo que entró y lo que salió del negocio.</p>
+
+    <form id="form-entry" class="card form-card">
+      <div class="field-grid">
+        <div class="field">
+          <label for="e-date">Fecha</label>
+          <input type="date" id="e-date" required>
+        </div>
+        <div class="field">
+          <label for="e-ingresos">Ingresos del día (ventas)</label>
+          <div class="money-input"><span>$</span><input type="number" min="0" step="1000" id="e-ingresos" required></div>
+        </div>
+        <div class="field">
+          <label for="e-costos">Costos del día (insumos)</label>
+          <div class="money-input"><span>$</span><input type="number" min="0" step="1000" id="e-costos" required></div>
+        </div>
+        <div class="field">
+          <label for="e-gastos">Gastos del día (transporte, arriendo del puesto…)</label>
+          <div class="money-input"><span>$</span><input type="number" min="0" step="1000" id="e-gastos" required></div>
+        </div>
+        <div class="field">
+          <label for="e-pagodeuda">Pago de deudas del día</label>
+          <div class="money-input"><span>$</span><input type="number" min="0" step="1000" id="e-pagodeuda"></div>
+        </div>
+        <div class="field">
+          <label for="e-prestamo">Préstamo nuevo recibido hoy</label>
+          <div class="money-input"><span>$</span><input type="number" min="0" step="1000" id="e-prestamo"></div>
+        </div>
+      </div>
+
+      <div class="personal-block">
+        <h4>Movimiento personal del día</h4>
+        <p class="field-help">El dinero que cruza entre tu bolsillo y el negocio — la parte que casi nadie registra.</p>
+        <div class="field-grid">
+          <div class="field">
+            <label for="e-retiro">Retiro personal (saqué plata del negocio para mí)</label>
+            <div class="money-input"><span>$</span><input type="number" min="0" step="1000" id="e-retiro"></div>
+          </div>
+          <div class="field">
+            <label for="e-aporte">Aporte personal (puse plata mía para cubrir el negocio)</label>
+            <div class="money-input"><span>$</span><input type="number" min="0" step="1000" id="e-aporte"></div>
+          </div>
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-primary">Guardar registro de hoy</button>
+      <p id="entry-msg" class="form-msg" hidden></p>
+    </form>
+
+    <div class="card">
+      <h3>Últimos registros</h3>
+      <div class="table-scroll">
+        <table class="hist-table" id="recent-table">
+          <thead><tr><th>Fecha</th><th>Ingresos</th><th>Costos+Gastos</th><th>Utilidad</th></tr></thead>
+          <tbody id="recent-body"></tbody>
+        </table>
+      </div>
+      <p class="field-help">El historial completo está en la pestaña <strong>Resultados</strong>.</p>
+    </div>
+  </section>
+
+  <!-- ================= RESULTADOS ================= -->
+  <section id="panel-resultados" class="panel" data-panel="resultados" hidden>
+    <h2>Resultados</h2>
+    <p class="panel-sub">Se actualiza solo con cada día que registras.</p>
+
+    <div class="results-grid">
+      <div class="card semaforo-card">
+        <h3>Semáforo de salud financiera</h3>
+        <div id="semaforo" class="semaforo">
+          <div class="sem-dot" id="sem-dot"></div>
+          <div>
+            <div id="sem-title" class="sem-title"></div>
+            <div id="sem-msg" class="sem-msg"></div>
+            <div id="sem-reco" class="sem-reco"></div>
+          </div>
+        </div>
+        <ul id="signals" class="signals-list"></ul>
+      </div>
+
+      <div class="card balance-card">
+        <h3>Tu balance</h3>
+        <p class="field-help">Activos = Pasivos + Patrimonio</p>
+        <div class="balance-bar">
+          <div class="seg seg-liab" id="seg-liab"></div>
+          <div class="seg seg-equity" id="seg-equity"></div>
+        </div>
+        <div class="balance-legend">
+          <span><i class="dot dot-liab"></i> Pasivos <b id="bal-pasivos"></b></span>
+          <span><i class="dot dot-equity"></i> Patrimonio <b id="bal-patrimonio"></b></span>
+        </div>
+        <p class="balance-total">Activos totales: <b id="bal-activos"></b></p>
+        <p id="check-note" class="check-note"></p>
+      </div>
+
+      <div class="card trend-card">
+        <h3>Saldo de caja en el tiempo</h3>
+        <div class="trend-wrap">
+          <svg id="trend-svg" viewBox="0 0 600 220" preserveAspectRatio="none"></svg>
+          <div id="trend-tooltip" class="trend-tooltip" hidden></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Historial completo</h3>
+      <div class="table-scroll">
+        <table class="hist-table" id="hist-table">
+          <thead><tr><th>Fecha</th><th>Ingresos</th><th>Costos+Gastos</th><th>Utilidad</th><th>Saldo del día</th><th>Saldo acumulado</th><th></th></tr></thead>
+          <tbody id="hist-body"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= ASESOR FINANCIERO ================= -->
+  <section id="panel-asesor" class="panel" data-panel="asesor" hidden>
+    <h2>Asesor financiero</h2>
+    <p class="panel-sub disclaimer">Esto es una <strong>estimación educativa</strong> basada en tus propios registros — no reemplaza la evaluación real de un banco o una entidad de crédito.</p>
+
+    <div class="card">
+      <h3>Tu capacidad de endeudamiento estimada</h3>
+      <div id="capacidad-box" class="capacidad-box">
+        <div class="capacidad-num">
+          <span class="capacidad-label">Cuota mensual máxima recomendada</span>
+          <span id="cap-cuota" class="capacidad-value"></span>
+        </div>
+        <p id="cap-motivo" class="field-help"></p>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Simulador de crédito</h3>
+      <form id="form-sim" class="form-card">
+        <div class="field-grid">
+          <div class="field">
+            <label for="sim-monto">Monto del crédito</label>
+            <div class="money-input"><span>$</span><input type="number" min="0" step="10000" id="sim-monto" required></div>
+          </div>
+          <div class="field">
+            <label for="sim-tasa">Tasa de interés mensual (%)</label>
+            <input type="number" min="0" step="0.1" id="sim-tasa" required placeholder="Ej: 2.5">
+          </div>
+          <div class="field">
+            <label for="sim-plazo">Plazo (meses)</label>
+            <input type="number" min="1" step="1" id="sim-plazo" required placeholder="Ej: 12">
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Calcular</button>
+      </form>
+      <div id="sim-result" class="sim-result" hidden></div>
+    </div>
+
+    <div class="card">
+      <h3>Consejos para tu negocio</h3>
+      <ul id="tips-list" class="tips-list"></ul>
+    </div>
+  </section>
+
+  <!-- ================= ADMIN / PROGRAMA ================= -->
+  <section id="panel-admin" class="panel" data-panel="admin" hidden>
+    <div id="admin-gate" class="card form-card">
+      <h2>Panel del programa</h2>
+      <p class="field-help">Acceso solo para el equipo del programa.</p>
+      <div class="field">
+        <label for="admin-code">Código de administrador</label>
+        <input type="password" id="admin-code" placeholder="••••••••">
+      </div>
+      <button id="btn-admin-enter" class="btn btn-primary" type="button">Entrar</button>
+      <p id="admin-msg" class="form-msg" hidden></p>
+    </div>
+
+    <div id="admin-panel" hidden>
+      <h2>Negocios registrados</h2>
+      <button id="btn-admin-refresh" class="btn btn-ghost btn-sm" type="button">↻ Actualizar</button>
+      <div class="table-scroll">
+        <table class="hist-table" id="admin-table">
+          <thead><tr><th>Negocio</th><th>Semáforo</th><th>Patrimonio</th><th>Colchón (días)</th><th>Días registrados</th><th>Última actualización</th></tr></thead>
+          <tbody id="admin-body"></tbody>
+        </table>
+      </div>
+      <div id="admin-detail" class="card" hidden></div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <span>Programa Pa'lante · Alcaldía de Santa Marta</span>
+</footer>
+
+<script type="module" src="js/app.js"></script>
+</body>
+</html>

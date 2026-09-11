@@ -1,0 +1,47 @@
+rules_version = '2';
+
+// Reglas de seguridad de Firestore para "Pulso del Negocio".
+//
+// CÓMO USAR ESTE ARCHIVO
+// 1. Entra a la consola de Firebase de tu proyecto → Firestore Database → Reglas.
+// 2. Borra lo que haya y pega TODO el contenido de este archivo.
+// 3. Haz clic en "Publicar".
+//
+// QUÉ HACEN (Y QUÉ NO HACEN) ESTAS REGLAS
+// Esta herramienta NO pide usuario/contraseña a las emprendedoras (para que
+// puedan usarla sin crear cuentas). Por eso estas reglas no pueden verificar
+// "quién eres" — solo pueden verificar "la forma de los datos que escribes".
+// La privacidad entre negocios depende de que el nombre+código de 4 dígitos
+// (que forman el identificador del documento) no sea adivinado por otra
+// persona — es una barrera de privacidad razonable para un piloto, no una
+// garantía de seguridad total. Si más adelante quieres cuentas reales con
+// contraseña, dímelo y podemos migrar a Firebase Authentication.
+//
+// Estas reglas sí evitan que alguien use tu proyecto de Firebase para
+// guardar cosas fuera de la colección "negocios", y validan que cada
+// documento tenga la forma esperada antes de aceptarlo.
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    match /negocios/{negocioId} {
+      allow read: if true;
+      allow create, update: if esNegocioValido(request.resource.data);
+      allow delete: if false; // nunca se borra un negocio completo desde la app
+    }
+
+    // Cualquier otra colección queda bloqueada por defecto.
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
+
+function esNegocioValido(data) {
+  return data.keys().hasAll(['nombre', 'config', 'entries', 'updatedAt'])
+    && data.nombre is string && data.nombre.size() > 0 && data.nombre.size() < 200
+    && data.config is map
+    && data.entries is list
+    && data.entries.size() < 5000
+    && data.updatedAt is string;
+}
